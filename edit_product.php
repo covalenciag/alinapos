@@ -21,6 +21,10 @@
     $satuan_db = $row['product_satuan'];
     $desc_db = $row['description'];
     $product_img = $row['img'];
+	
+	if ($product_img == ''){
+		$product_img='image.png';
+	}
 
     }else{
     header('location:product.php');

@@ -51,10 +51,8 @@
             $img_ext = strtolower(end($img_ext));
 
             $img_new = uniqid().'.'. $img_ext;
-			$product_img = '';
+
             $store = "upload/".$img_new;
-			
-			if ($img){
 
             if($img_ext == 'jpg' || $img_ext == 'jpeg' || $img_ext == 'png' || $img_ext == 'gif'){
                 if($img_size>= 1000000){
@@ -66,27 +64,11 @@
                             });
                             </script>';
                     echo $error;
-					}
-                }   else{
-                $error = '<script type="text/javascript">
-                jQuery(function validation(){
-                swal("Error", "Sube una imagen con los siguientes formatos : jpg, jpeg, png, gif", "error", {
-                button: "Continuar",
-                    });
-                });
-                </script>';
-                echo $error;
-
-            }//fin img_ext
-				
 					
-					
+                }else{
                     if(move_uploaded_file($img_tmp,$store)){
                         $product_img = $img_new;
-					} //fin moviupload img
-					
-				}//fin img
-				
+						
                         if(!isset($error)){
 
                             $insert = $pdo->prepare("INSERT INTO tbl_product(product_code,product_name,product_category,purchase_price,sell_price,stock,min_stock,product_satuan,description,img)
@@ -119,7 +101,7 @@
                                             });
                                         });
                                         </script>';;
-                            } //fin execute
+                            }
 
                         }else{
                             echo '<script type="text/javascript">
@@ -129,9 +111,21 @@
                                             });
                                         });
                                         </script>';;;
-                        } //fin error
-						
+                        }
+                    }
 
+                }
+            }  else{
+                $error = '<script type="text/javascript">
+                jQuery(function validation(){
+                swal("Error", "Sube una imagen con los siguientes formatos : jpg, jpeg, png, gif", "error", {
+                button: "Continuar",
+                    });
+                });
+                </script>';
+                echo $error;
+
+            }
             }
         }
     }
@@ -232,9 +226,9 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="">Imagen del producto</label><br>
-                            <span class="text-muted">El archivo debe tener 1 MB y debe ser jpg jpeg png gif</span>
+                            <br>
                             <input type="file" class="input-group"
-                            name="product_img" onchange="readURL(this);"> <br>
+                            name="product_img" onchange="readURL(this); required"> <br>
                             <!--<img id="img_preview" src="upload/<?php //echo $row->img?>" alt="Preview" class="img-responsive" />-->
                         </div>
                     </div>

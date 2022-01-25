@@ -23,7 +23,7 @@
       $result = $select->fetchAll();
 
       foreach($result as $row){
-        $output.='<option value="'.$row['product_id'].'">'.$row["product_code"].' - ' .$row["product_name"].'</option>';
+        $output.='<option value="'.$row['product_id'].'">'.$row["product_name"].'</option>';
       }
 
       return $output;

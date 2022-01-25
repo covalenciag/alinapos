@@ -29,7 +29,14 @@
 
                 $select = $pdo->prepare("SELECT * FROM tbl_product WHERE product_id=$id");
                 $select->execute();
-                while($row = $select->fetch(PDO::FETCH_OBJ)){ ?>
+                while($row = $select->fetch(PDO::FETCH_OBJ)){ 
+				if ($row->img == ''){
+					$image='image.png';
+					}
+					else {
+						$image=$row->img;
+						}
+				?>
 
                 <div class="col-md-6">
                   <ul class="list-group">
@@ -51,7 +58,7 @@
                 <div class="col-md-6">
                   <ul class="list-group">
                     <center><p class="list-group-item list-group-item-success">Imagen del producto</p></center>
-                    <img src="upload/<?php echo $row->img?>" alt="Product Image" class="img-responsive">
+                    <img src="upload/<?php echo $image?>" alt="Product Image" class="img-responsive">
                   </ul>
                 </div>
               <?php
