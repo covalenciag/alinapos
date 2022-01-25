@@ -138,11 +138,11 @@
                               <td><?php echo $no++ ;?></td>
                               <td><?php echo $row->product_name; ?></td>
                               <td><?php echo $row->product_code; ?></td>
-                              <td><?php echo $row->q; ?>
-                              <span><?php echo $row->product_satuan; ?></span>
+                              <td><span class="label label-primary"><?php echo $row->q; ?></span>
+                              <span class="label label-default"><?php echo $row->product_satuan; ?></span>
                               </td>
-                              <td>S/. <?php echo number_format($row->price,2);?></td>
-                              <td>S/. <?php echo number_format($row->total,2); ?></td>
+                              <td><span class="label label-warning">S/. <?php echo number_format($row->price,2);?></span></td>
+                              <td><span class="label label-success">S/. <?php echo number_format($row->total,2); ?></span></td>
                               </tr>
 
                         <?php

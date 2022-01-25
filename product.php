@@ -71,8 +71,8 @@
                                 <td><?php echo $no++ ;?></td>
                                 <td><?php echo $row->product_name; ?></td>
                                 <td><?php echo $row->product_code; ?></td>
-                                <td>S/. <?php echo number_format($row->purchase_price,2);?></td>
-                                <td>S/. <?php echo number_format($row->sell_price,2); ?></td>
+                                <td><span class="label label-info">S/. <?php echo number_format($row->purchase_price,2);?></span></td>
+                                <td><span class="label label-success">S/. <?php echo number_format($row->sell_price,2); ?></span></td>
                                 <td> <?php if($row->stock=="0"){ ?>
                                 <span class="label label-danger"><?php echo $row->stock; ?></span>
                                 <?php }elseif($row->stock<=$row->min_stock){ ?>

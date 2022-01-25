@@ -96,7 +96,7 @@
                                 <td><?php echo $no++ ; ?></td>
                                 <td class="text-uppercase"><?php echo $row->cashier_name; ?></td>
                                 <td><?php echo $row->order_date; ?></td>
-                                <td>S/. <?php echo number_format($row->total,2); ?></td>
+                                <td><span class="label label-success">S/. <?php echo number_format($row->total,2); ?></span></td>
                                 <td>
                                     <?php if($_SESSION['role']=="Admin"){ ?>
                                     <a href="order.php?id=<?php echo $row->invoice_id; ?>" onclick="return confirm('¿Realmente desea eliminar la transacción?')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
