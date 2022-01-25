@@ -225,7 +225,7 @@
                         <div class="form-group">
                             <label for="">Descripción breve del producto</label>
                             <textarea name="description" id="description"
-                            cols="30" rows="10" class="form-control" required></textarea>
+                            cols="30" rows="10" class="form-control"></textarea>
                         </div>
                     </div>
 

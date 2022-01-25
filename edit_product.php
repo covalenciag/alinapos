@@ -232,7 +232,7 @@
                         <div class="form-group">
                             <label for="">Descripción del producto</label>
                             <textarea name="description" id="description"
-                            cols="30" rows="10" class="form-control" required><?php echo $desc_db; ?></textarea>
+                            cols="30" rows="10" class="form-control"><?php echo $desc_db; ?></textarea>
                         </div>
                     </div>
 
