@@ -14,6 +14,19 @@
 
     error_reporting(0);
     date_default_timezone_set('america/bogota');
+	
+	
+	$select = $pdo->prepare("SELECT * FROM tbl_product");
+      $select->execute();
+      $result = $select->fetchAll();
+		
+		$array = array();
+      foreach($result as $row){
+        //$output.='<option value="'.$row['product_id'].'">'.$row["product_name"].'</option>';
+			$producto = utf8_encode($row['product_name']) . '-' . utf8_encode($row['product_id']);
+			array_push($array, $producto);
+			
+      }
 
     function fill_product($pdo){
       $output= '';
@@ -21,9 +34,11 @@
       $select = $pdo->prepare("SELECT * FROM tbl_product");
       $select->execute();
       $result = $select->fetchAll();
-
+		
+		$array = array();
       foreach($result as $row){
-        $output.='<option value="'.$row['product_id'].'">'.$row["product_name"].'</option>';
+        //$output.='<option value="'.$row['product_id'].'">'.$row["product_name"].'</option>';
+			array_push($array, utf8_encode($row['product_name']).'-'.utf8_encode($row['product_id'])); // 
       }
 
       return $output;
@@ -270,8 +285,7 @@
         html+='<tr>';
 		html+='<td><button type="button" name="remove" class="btn btn-danger btn-sm btn-remove"><i class="fa fa-remove"></i></button></td>';
         html+='<td><input type="hidden" class="form-control productcode" name="productcode[]" readonly></td>';
-        html+='<td><select class="form-control productid" name="productid[]" style="width:100px;" required><option value="">--Selecciona Producto--</option><?php
-        echo fill_product($pdo)?></select></td>';
+        html+='<td>  <input type="text" class="form-control productid" name="productid[]"></td>';
         html+='<td><input type="text" class="form-control productname" style="width:200px;" name="productname[]" readonly></td>';
         html+='<td><input type="text" class="form-control productstock" style="width:50px;" name="productstock[]" readonly></td>';
         html+='<td><input type="text" class="form-control productprice" style="width:100px;" name="productprice[]" readonly></td>';
@@ -281,36 +295,41 @@
        
 		
 		$('#myOrder').append(html);
+		
+		var items = <?php echo json_encode($array); ?>
+		
 
-        $('.productid').on('change', function(e){
-          var productid = this.value;
-          var tr=$(this).parent().parent();
-          $.ajax({
-            url:"getproduct.php",
-            method:"get",
-            data:{id:productid},
-            success:function(data){
-              //console.log(data);
-              tr.find(".productcode").val(data["product_code"]);
-              tr.find(".productname").val(data["product_name"]);
-              tr.find(".productstock").val(data["stock"]);
-              tr.find(".productsatuan").val(data["product_satuan"]);
-              tr.find(".productprice").val(data["sell_price"]);
+			$(".productid").autocomplete({
+				source: items,
+				select: function (event, item) {
+					itemsito = item.item.value.substr(-2,2)
+					var params = {
+						id : itemsito
+					};
+					
+					 var tr=$(this).parent().parent();
+					$.get("getproduct.php", params, function (response) {
+								
+			 tr.find(".productcode").val(response.product_code);
+              tr.find(".productname").val(response.product_name);
+              tr.find(".productstock").val(response.stock);
+              tr.find(".productsatuan").val(response.product_satuan);
+              tr.find(".productprice").val(response.sell_price);
               tr.find(".quantity_product").val(0);
               tr.find(".producttotal").val(tr.find(".quantity_product").val() * tr.find(".productprice").val());
               calculate(0,0);
-            }
-          })
-        })
-		
+
+					}); //fin get
+				}
+			}); //fin autocomplete
+	
 		
       $(document).on('click','.btn_addOrder', function(){
         var html='';
         html+='<tr>';
 		html+='<td><button type="button" name="remove" class="btn btn-danger btn-sm btn-remove"><i class="fa fa-remove"></i></button></td>';
         html+='<td><input type="hidden" class="form-control productcode" name="productcode[]" readonly></td>';
-        html+='<td><select class="form-control productid" name="productid[]" style="width:100px;" required><option value="">--Selecciona Producto--</option><?php
-        echo fill_product($pdo)?></select></td>';
+        html+='<td>  <input type="text" class="form-control productid" name="productid[]"></td>';
         html+='<td><input type="text" class="form-control productname" style="width:200px;" name="productname[]" readonly></td>';
         html+='<td><input type="text" class="form-control productstock" style="width:50px;" name="productstock[]" readonly></td>';
         html+='<td><input type="text" class="form-control productprice" style="width:100px;" name="productprice[]" readonly></td>';
@@ -318,33 +337,45 @@
         html+='<td><input type="text" class="form-control productsatuan" style="width:100px;" name="productsatuan[]" readonly></td>';
         html+='<td><input type="text" class="form-control producttotal" style="width:150px;" name="producttotal[]" readonly></td>';
         
-		
-		 
 
         $('#myOrder').append(html);
 
-        $('.productid').on('change', function(e){
-          var productid = this.value;
-          var tr=$(this).parent().parent();
-          $.ajax({
-            url:"getproduct.php",
-            method:"get",
-            data:{id:productid},
-            success:function(data){
-              //console.log(data);
-              tr.find(".productcode").val(data["product_code"]);
-              tr.find(".productname").val(data["product_name"]);
-              tr.find(".productstock").val(data["stock"]);
-              tr.find(".productsatuan").val(data["product_satuan"]);
-              tr.find(".productprice").val(data["sell_price"]);
+        var items = <?php echo json_encode($array); ?>
+		
+
+			$(".productid").autocomplete({
+				source: items,
+				select: function (event, item) {
+					itemsito = item.item.value.substr(-2,2)
+					var params = {
+						id : itemsito
+					};
+					
+					 var tr=$(this).parent().parent();
+					$.get("getproduct.php", params, function (response) {
+								
+			 tr.find(".productcode").val(response.product_code);
+              tr.find(".productname").val(response.product_name);
+              tr.find(".productstock").val(response.stock);
+              tr.find(".productsatuan").val(response.product_satuan);
+              tr.find(".productprice").val(response.sell_price);
               tr.find(".quantity_product").val(0);
               tr.find(".producttotal").val(tr.find(".quantity_product").val() * tr.find(".productprice").val());
               calculate(0,0);
-            }
-          })
-        })
+
+					}); //fin get
+				}
+			}); //fin autocomplete
+
 		
-		})
+		
+		
+
+			
+			
+			
+		
+		})//fin onclick
 		
 
      

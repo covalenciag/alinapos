@@ -31,7 +31,7 @@ $pdf->Line(10,31,72,31);
 
 $pdf->SetY(31);
 $pdf->SetFont('Arial','B',10);
-$pdf->Cell(60,6 ,'Factura de Compra',0,1,'C');
+$pdf->Cell(60,6 ,'Boleta de Compra',0,1,'C');
 
 $pdf->SetFont('Courier','B',8);
 $pdf->Cell(20,4 ,'No. Nota     :',0,0,'C');
@@ -104,7 +104,7 @@ $pdf->Cell(1,8 ,'S/. '. number_format($row->due,2),0,1,'C');
 $pdf->SetY(120);
 $pdf->SetX(7);
 $pdf->SetFont('Arial','BU',5);
-$pdf->Cell(75,4 ,'No se aceptan devoluciones sin factura de compra',10,1,'C');
+$pdf->Cell(75,4 ,'No se aceptan devoluciones sin boleta de compra',10,1,'C');
 
 $pdf->SetFont('Arial','BU',5);
 $pdf->Cell(70,4 ,'Se aceptan devoluciones hasta 3 dIas despuEs de la compra',0,0,'C');
