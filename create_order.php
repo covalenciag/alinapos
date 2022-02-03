@@ -23,11 +23,12 @@
 		$array = array();
       foreach($result as $row){
         //$output.='<option value="'.$row['product_id'].'">'.$row["product_name"].'</option>';
-			$producto = utf8_encode($row['product_name']) . '-' . utf8_encode($row['product_id']);
+			$producto = $row['product_name'] . '-' . $row['product_id'];
 			array_push($array, $producto);
 			
       }
 
+/*
     function fill_product($pdo){
       $output= '';
 
@@ -43,7 +44,7 @@
 
       return $output;
     }
-
+*/
     if(isset($_POST['save_order'])){
       $cashier_name = $_POST['cashier_name'];
       $order_date = date("Y-m-d",strtotime($_POST['orderdate']));
@@ -285,7 +286,7 @@
         html+='<tr>';
 		html+='<td><button type="button" name="remove" class="btn btn-danger btn-sm btn-remove"><i class="fa fa-remove"></i></button></td>';
         html+='<td><input type="hidden" class="form-control productcode" name="productcode[]" readonly></td>';
-        html+='<td>  <input type="text" class="form-control productid" name="productid[]"></td>';
+        html+='<td><input type="hidden" class="form-control productid" name="productid[]"><input type="text" class="form-control productsearch" name="productsearch[]"></td>';
         html+='<td><input type="text" class="form-control productname" style="width:200px;" name="productname[]" readonly></td>';
         html+='<td><input type="text" class="form-control productstock" style="width:50px;" name="productstock[]" readonly></td>';
         html+='<td><input type="text" class="form-control productprice" style="width:100px;" name="productprice[]" readonly></td>';
@@ -299,7 +300,7 @@
 		var items = <?php echo json_encode($array); ?>
 		
 
-			$(".productid").autocomplete({
+			$(".productsearch").autocomplete({
 				source: items,
 				select: function (event, item) {
 					itemsito = item.item.value.substr(-2,2)
@@ -309,7 +310,8 @@
 					
 					 var tr=$(this).parent().parent();
 					$.get("getproduct.php", params, function (response) {
-								
+			
+				tr.find(".productid").val(response.product_id);
 			 tr.find(".productcode").val(response.product_code);
               tr.find(".productname").val(response.product_name);
               tr.find(".productstock").val(response.stock);
@@ -329,7 +331,7 @@
         html+='<tr>';
 		html+='<td><button type="button" name="remove" class="btn btn-danger btn-sm btn-remove"><i class="fa fa-remove"></i></button></td>';
         html+='<td><input type="hidden" class="form-control productcode" name="productcode[]" readonly></td>';
-        html+='<td>  <input type="text" class="form-control productid" name="productid[]"></td>';
+        html+='<td><input type="hidden" class="form-control productid" name="productid[]"><input type="text" class="form-control productsearch" name="productsearch[]"></td>';
         html+='<td><input type="text" class="form-control productname" style="width:200px;" name="productname[]" readonly></td>';
         html+='<td><input type="text" class="form-control productstock" style="width:50px;" name="productstock[]" readonly></td>';
         html+='<td><input type="text" class="form-control productprice" style="width:100px;" name="productprice[]" readonly></td>';
@@ -343,7 +345,7 @@
         var items = <?php echo json_encode($array); ?>
 		
 
-			$(".productid").autocomplete({
+			$(".productsearch").autocomplete({
 				source: items,
 				select: function (event, item) {
 					itemsito = item.item.value.substr(-2,2)
@@ -353,7 +355,7 @@
 					
 					 var tr=$(this).parent().parent();
 					$.get("getproduct.php", params, function (response) {
-								
+			 tr.find(".productid").val(response.product_id);
 			 tr.find(".productcode").val(response.product_code);
               tr.find(".productname").val(response.product_name);
               tr.find(".productstock").val(response.stock);

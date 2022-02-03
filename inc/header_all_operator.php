@@ -76,6 +76,17 @@
   <!-- chart Js 
   <script src="chartjs/dist/Chart.min.js"></script>-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+  
+ <?php
+if(isset($_GET['or'])){
+	
+	?>
+	<link href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" rel="stylesheet"/>
+  <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+
+	<?php }
+	
+	?>
 
 </head>
 

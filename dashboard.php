@@ -71,7 +71,7 @@
          <!-- get today transactions notification -->
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <a href="create_order.php"><span class="info-box-icon bg-aqua"><i class="fa fa-shopping-cart"></i></span></a>
+            <a href="create_order.php?or=1"><span class="info-box-icon bg-aqua"><i class="fa fa-shopping-cart"></i></span></a>
 
             <div class="info-box-content">
               <span class="info-box-text">Ventas de hoy</span>

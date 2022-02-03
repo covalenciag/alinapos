@@ -71,7 +71,7 @@
         <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">Lista de ventas</h3>
-                <a href="create_order.php" class="btn btn-success btn-sm pull-right">Agregar venta</a>
+                <a href="create_order.php?or=1" class="btn btn-success btn-sm pull-right">Agregar venta</a>
             </div>
             <div class="box-body">
                 <div style="overflow-x:auto;">
