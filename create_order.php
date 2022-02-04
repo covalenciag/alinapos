@@ -21,10 +21,13 @@
       $result = $select->fetchAll();
 		
 		$array = array();
+		//$array1 = array();
       foreach($result as $row){
         //$output.='<option value="'.$row['product_id'].'">'.$row["product_name"].'</option>';
-			$producto = $row['product_name'] . '-' . $row['product_id'];
+			$producto = $row['product_name'] . '|' . $row['product_id'];
+			//$producto1 = $row['product_id'];
 			array_push($array, $producto);
+			//array_push($array1, $producto1);
 			
       }
 
@@ -297,15 +300,17 @@
 		
 		$('#myOrder').append(html);
 		
-		var items = <?php echo json_encode($array); ?>
-		
+		var items = <?php echo json_encode($array); ?>;		
 
 			$(".productsearch").autocomplete({
 				source: items,
 				select: function (event, item) {
-					itemsito = item.item.value.substr(-2,2)
+					console.log(item);
+					itensito = item.item.value
+					split = itensito.split('|') 
+					token = split[1] 
 					var params = {
-						id : itemsito
+						id : token
 					};
 					
 					 var tr=$(this).parent().parent();
@@ -322,7 +327,7 @@
               calculate(0,0);
 
 					}); //fin get
-				}
+				} //fin select
 			}); //fin autocomplete
 	
 		
@@ -348,9 +353,11 @@
 			$(".productsearch").autocomplete({
 				source: items,
 				select: function (event, item) {
-					itemsito = item.item.value.substr(-2,2)
+					itensito = item.item.value
+					split = itensito.split('|') 
+					token = split[1] 
 					var params = {
-						id : itemsito
+						id : token
 					};
 					
 					 var tr=$(this).parent().parent();
@@ -368,21 +375,9 @@
 					}); //fin get
 				}
 			}); //fin autocomplete
-
-		
-		
-		
-
-			
-			
-			
-		
+	
 		})//fin onclick
 		
-
-     
-	  
-	  
 
       $(document).on('click','.btn-remove', function(){
         $(this).closest('tr').remove();
