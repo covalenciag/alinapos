@@ -63,10 +63,11 @@
 
         <!-- get today transactions -->
         <?php
-        $select = $pdo->prepare("SELECT count(invoice_id) as i FROM tbl_invoice WHERE order_date = CURDATE()");
+        $select = $pdo->prepare("SELECT count(invoice_id) as i, sum(total) as total FROM tbl_invoice");
         $select->execute();
         $row=$select->fetch(PDO::FETCH_OBJ);
         $invoice = $row->i ;
+		$total = $row->total ;
         ?>
          <!-- get today transactions notification -->
         <div class="col-md-3 col-sm-6 col-xs-12">
@@ -74,8 +75,9 @@
             <a href="create_order.php?or=1"><span class="info-box-icon bg-aqua"><i class="fa fa-shopping-cart"></i></span></a>
 
             <div class="info-box-content">
-              <span class="info-box-text">Ventas de hoy</span>
-              <span class="info-box-number"><small><?php echo $row->i ?></small></span>
+              <span class="info-box-text">Ventas totales</span>
+              <span class="info-box-number"><small>S/. <?php echo number_format($total,2); ?></small></span>
+			  <span class="info-box-number"><small><?php echo $row->i ?> ventas</small></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -85,7 +87,7 @@
 
         <!-- get today income -->
         <?php
-        $select = $pdo->prepare("SELECT sum(total) as total FROM tbl_invoice WHERE order_date = CURDATE()");
+        $select = $pdo->prepare("SELECT count(invoice_id) as i, sum(total) as total FROM tbl_invoice WHERE order_date = CURDATE()");
         $select->execute();
         $row=$select->fetch(PDO::FETCH_OBJ);
         $total = $row->total ;
@@ -96,8 +98,9 @@
             <a href="order.php"><span class="info-box-icon bg-aqua"><i class="fa fa-money"></i></span></a>
 
             <div class="info-box-content">
-              <span class="info-box-text">Ganancias del día</span>
+              <span class="info-box-text">Ventas de hoy</span>
               <span class="info-box-number"><small>S/. <?php echo number_format($total,2); ?></small></span>
+			  <span class="info-box-number"><small><?php echo $row->i ?> ventas</small></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -106,7 +109,7 @@
 
       </div>
 
-      <div class="col-md-offset-1 col-md-10">
+      <div class="col-md-offset-1 col-md-14">
         <div class="box box-success">
           <div class="box-header with-border">
               <h3 class="box-title">Lista de productos aplicados</h3>
